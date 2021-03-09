@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(RestorationApp());
+  runApp(
+    RootRestorationScope(
+      restorationId: "app",
+      child: RestorationApp(),
+    ),
+  );
 }
 
 class RestorationApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      restorationScopeId: 'app',
       title: 'Restorable Counter',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: RestorableCounter(restorationId: 'counter'),
+      home: RestorableCounter(),
     );
   }
 }
 
 class RestorableCounter extends StatefulWidget {
-  RestorableCounter({Key key, this.restorationId}) : super(key: key);
-
-  final String restorationId;
-
   @override
   _RestorableCounterState createState() => _RestorableCounterState();
 }
@@ -40,7 +40,7 @@ class _RestorableCounterState extends State<RestorableCounter>
   @override
   // The restoration bucket id for this page,
   // let's give it the name of our page!
-  String get restorationId => widget.restorationId;
+  String get restorationId => "counter_page";
 
   @override
   void restoreState(RestorationBucket oldBucket, bool initialRestore) {
